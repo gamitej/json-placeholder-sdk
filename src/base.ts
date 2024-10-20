@@ -25,6 +25,11 @@ export abstract class Base {
       headers,
     };
 
-    return fetch(url, config).then((response) => response.json());
+    return fetch(url, config).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    });
   }
 }
